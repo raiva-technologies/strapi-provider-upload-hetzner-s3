@@ -1,0 +1,24 @@
+# Hetzner Object Storage Credentials
+# Get these from: https://console.hetzner.cloud/ > Object Storage > Your Bucket > S3 Keys
+HETZNER_ACCESS_KEY_ID=your_access_key_here
+HETZNER_SECRET_ACCESS_KEY=your_secret_key_here
+
+# Region: fsn1 (Falkenstein, DE), nbg1 (Nuremberg, DE), or hel1 (Helsinki, FI)
+HETZNER_REGION=fsn1
+
+# Your bucket name (must be unique globally)
+HETZNER_BUCKET_NAME=my-strapi-bucket
+
+# Optional: Bucket Prefix (e.g., "uploads" or "strapi/media")
+# Leading and trailing slashes will be automatically removed
+HETZNER_BUCKET_PREFIX=uploads
+
+# Optional: CDN Base URL (if you're using a CDN in front of your bucket)
+# Example: https://cdn.example.com
+# Leave empty to use direct bucket URLs
+CDN_BASE_URL=
+
+# Optional: ACL for uploaded files
+# Options: private, public-read, public-read-write, authenticated-read
+# Default: private
+HETZNER_BUCKET_ACL=public-read
