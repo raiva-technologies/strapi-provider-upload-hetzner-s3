@@ -317,9 +317,9 @@ If you have any questions or issues:
 
 ### v1.0.0
 - Initial Release
-- Unterstützung für alle drei Hetzner-Regionen
+- Support for 3 Regions
 - TypeScript Support
-- Vollständige Test-Coverage
+- Full Test-Coverage
 - Prefix und Base URL Support
 
 ---
