@@ -6,7 +6,7 @@ import {
 import { mockClient } from "aws-sdk-client-mock";
 import "aws-sdk-client-mock-jest";
 import { Readable } from "stream";
-import { init, type File } from "../src/index";
+import { init, type File } from "../index";
 
 const client = new S3Client({
   region: "fsn1",

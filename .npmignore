@@ -1,0 +1,11 @@
+src/
+.gitignore
+.git/
+tsconfig.json
+jest.config.js
+env.example
+*.test.ts
+*.spec.ts
+__tests__/
+.github/
+node_modules/

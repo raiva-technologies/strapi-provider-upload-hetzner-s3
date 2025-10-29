@@ -2,9 +2,10 @@ import {
   DeleteObjectCommand,
   type PutObjectCommandInput,
   S3Client,
+  type ObjectCannedACL,
 } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
-import { Stream } from "stream";
+import { Readable } from "stream";
 
 /**
  * Hetzner Object Storage Locations
@@ -32,8 +33,8 @@ interface Config {
   params: Partial<{
     Bucket: string;
     bucket: string;
-    ACL: string;
-    acl: string;
+    ACL: ObjectCannedACL;
+    acl: ObjectCannedACL;
   }> &
     Record<string, unknown>;
   /**
@@ -43,7 +44,7 @@ interface Config {
 }
 
 export interface File {
-  stream?: Stream;
+  stream?: Readable;
   buffer?: any;
   mime?: string;
   ext?: string;
