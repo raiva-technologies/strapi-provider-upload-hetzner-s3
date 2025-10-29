@@ -1,61 +1,61 @@
 # strapi-provider-upload-hetzner-s3
 
-Ein Strapi Upload Provider für Hetzner Object Storage (S3-kompatibel).
+A Strapi Upload Provider for Hetzner Object Storage (S3-compatible).
 
 ## 🚀 Features
 
-- ✅ Vollständige Integration mit Hetzner Object Storage
-- ✅ Unterstützung aller drei Hetzner-Regionen (FSN1, NBG1, HEL1)
+- ✅ Full integration with Hetzner Object Storage
+- ✅ Support for all three Hetzner regions (FSN1, NBG1, HEL1)
 - ✅ TypeScript Support
-- ✅ Bucket-Präfixe für organisierte Dateistruktur
-- ✅ Custom Base URL Support (z.B. für CDN)
-- ✅ ACL-Konfiguration
+- ✅ Bucket prefixes for organized file structure
+- ✅ Custom Base URL Support (e.g., for CDN)
+- ✅ ACL configuration
 - ✅ Unit Tests
-- ✅ Buffer und Stream Upload Support
+- ✅ Buffer and Stream Upload Support
 
-## 📋 Voraussetzungen
+## 📋 Prerequisites
 
 - Node.js >= 14.19.1
 - Strapi >= 4.0.0
-- Ein Hetzner Object Storage Bucket
+- A Hetzner Object Storage Bucket
 
 ## 📦 Installation
 
 ```bash
 npm install strapi-provider-upload-hetzner-s3
-# oder
+# or
 yarn add strapi-provider-upload-hetzner-s3
 ```
 
 ## 🔧 Hetzner Object Storage Setup
 
-### 1. Bucket erstellen
+### 1. Create Bucket
 
-1. Gehe zum [Hetzner Cloud Console](https://console.hetzner.cloud/)
-2. Navigiere zu "Object Storage"
-3. Erstelle einen neuen Bucket
-4. Wähle eine Region:
-   - **FSN1**: Falkenstein, Deutschland
-   - **NBG1**: Nürnberg, Deutschland  
-   - **HEL1**: Helsinki, Finnland
+1. Go to [Hetzner Cloud Console](https://console.hetzner.cloud/)
+2. Navigate to "Object Storage"
+3. Create a new bucket
+4. Choose a region:
+   - **FSN1**: Falkenstein, Germany
+   - **NBG1**: Nuremberg, Germany  
+   - **HEL1**: Helsinki, Finland
 
-### 2. Access Keys generieren
+### 2. Generate Access Keys
 
-1. Klicke auf deinen Bucket
-2. Gehe zu "S3 Keys"
-3. Erstelle einen neuen S3 Key
-4. Speichere den **Access Key** und **Secret Key** sicher
+1. Click on your bucket
+2. Go to "S3 Keys"
+3. Create a new S3 Key
+4. Save the **Access Key** and **Secret Key** securely
 
-### 3. Bucket-Einstellungen
+### 3. Bucket Settings
 
-- **Public Access**: Aktiviere dies, wenn deine Dateien öffentlich zugänglich sein sollen
-- **CORS**: Konfiguriere CORS-Einstellungen falls nötig
+- **Public Access**: Enable this if your files should be publicly accessible
+- **CORS**: Configure CORS settings if needed
 
-## ⚙️ Konfiguration
+## ⚙️ Configuration
 
-### Basis-Konfiguration
+### Basic Configuration
 
-Erstelle oder bearbeite `./config/plugins.js` (oder `.ts`):
+Create or edit `./config/plugins.js` (or `.ts`):
 
 ```javascript
 module.exports = ({ env }) => ({
@@ -65,7 +65,7 @@ module.exports = ({ env }) => ({
       providerOptions: {
         accessKeyId: env("HETZNER_ACCESS_KEY_ID"),
         secretAccessKey: env("HETZNER_SECRET_ACCESS_KEY"),
-        region: env("HETZNER_REGION"), // fsn1, nbg1, oder hel1
+        region: env("HETZNER_REGION"), // fsn1, nbg1, or hel1
         params: {
           Bucket: env("HETZNER_BUCKET_NAME"),
         },
@@ -75,7 +75,7 @@ module.exports = ({ env }) => ({
 });
 ```
 
-### Erweiterte Konfiguration
+### Advanced Configuration
 
 ```javascript
 module.exports = ({ env }) => ({
@@ -85,15 +85,15 @@ module.exports = ({ env }) => ({
       providerOptions: {
         accessKeyId: env("HETZNER_ACCESS_KEY_ID"),
         secretAccessKey: env("HETZNER_SECRET_ACCESS_KEY"),
-        region: env("HETZNER_REGION"), // fsn1, nbg1, oder hel1
+        region: env("HETZNER_REGION"), // fsn1, nbg1, or hel1
         params: {
           Bucket: env("HETZNER_BUCKET_NAME"),
-          ACL: "public-read", // Optional: macht Dateien öffentlich lesbar
+          ACL: "public-read", // Optional: makes files publicly readable
         },
-        // Optional: Präfix für alle Uploads
-        prefix: env("HETZNER_BUCKET_PREFIX", "uploads"), // z.B. "strapi-assets"
-        // Optional: Custom Base URL (z.B. für CDN)
-        baseUrl: env("CDN_BASE_URL"), // z.B. "https://cdn.example.com"
+        // Optional: Prefix for all uploads
+        prefix: env("HETZNER_BUCKET_PREFIX", "uploads"), // e.g., "strapi-assets"
+        // Optional: Custom Base URL (e.g., for CDN)
+        baseUrl: env("CDN_BASE_URL"), // e.g., "https://cdn.example.com"
       },
     },
   },
@@ -102,43 +102,43 @@ module.exports = ({ env }) => ({
 
 ### Environment Variables
 
-Erstelle eine `.env` Datei im Root deines Projekts:
+Create a `.env` file in the root of your project:
 
 ```env
 # Hetzner Object Storage Credentials
-HETZNER_ACCESS_KEY_ID=dein_access_key
-HETZNER_SECRET_ACCESS_KEY=dein_secret_key
+HETZNER_ACCESS_KEY_ID=your_access_key
+HETZNER_SECRET_ACCESS_KEY=your_secret_key
 
-# Region (fsn1, nbg1, oder hel1)
+# Region (fsn1, nbg1, or hel1)
 HETZNER_REGION=fsn1
 
 # Bucket Name
-HETZNER_BUCKET_NAME=mein-strapi-bucket
+HETZNER_BUCKET_NAME=my-strapi-bucket
 
-# Optional: Bucket Präfix
+# Optional: Bucket Prefix
 HETZNER_BUCKET_PREFIX=uploads
 
 # Optional: CDN Base URL
 CDN_BASE_URL=https://cdn.example.com
 ```
 
-## 🌍 Verfügbare Regionen
+## 🌍 Available Regions
 
-| Region Code | Standort | Endpoint |
+| Region Code | Location | Endpoint |
 |-------------|----------|----------|
-| `fsn1` | Falkenstein, Deutschland | `fsn1.your-objectstorage.com` |
-| `nbg1` | Nürnberg, Deutschland | `nbg1.your-objectstorage.com` |
-| `hel1` | Helsinki, Finnland | `hel1.your-objectstorage.com` |
+| `fsn1` | Falkenstein, Germany | `fsn1.your-objectstorage.com` |
+| `nbg1` | Nuremberg, Germany | `nbg1.your-objectstorage.com` |
+| `hel1` | Helsinki, Finland | `hel1.your-objectstorage.com` |
 
-## 🖼️ Bild-Vorschauen im Strapi Admin
+## 🖼️ Image Previews in Strapi Admin
 
-Um Thumbnails im Strapi Admin Panel korrekt anzuzeigen, konfiguriere die Content Security Policy:
+To display thumbnails correctly in the Strapi Admin Panel, configure the Content Security Policy:
 
-Bearbeite `./config/middlewares.js`:
+Edit `./config/middlewares.js`:
 
 ```javascript
 module.exports = ({ env }) => [
-  // ... andere Middlewares
+  // ... other middlewares
   {
     name: "strapi::security",
     config: {
@@ -163,11 +163,11 @@ module.exports = ({ env }) => [
       },
     },
   },
-  // ... andere Middlewares
+  // ... other middlewares
 ];
 ```
 
-Falls du eine CDN Base URL verwendest:
+If using a CDN Base URL:
 
 ```javascript
 "img-src": [
@@ -184,37 +184,37 @@ Falls du eine CDN Base URL verwendest:
 ],
 ```
 
-## 🔐 Sicherheit & Best Practices
+## 🔐 Security & Best Practices
 
-### ACL-Einstellungen
+### ACL Settings
 
-Hetzner Object Storage unterstützt folgende ACL-Werte:
+Hetzner Object Storage supports the following ACL values:
 
-- `private` (Standard): Nur der Bucket-Besitzer hat Zugriff
-- `public-read`: Jeder kann Objekte lesen
-- `public-read-write`: Jeder kann lesen und schreiben (⚠️ nicht empfohlen)
-- `authenticated-read`: Nur authentifizierte Benutzer können lesen
+- `private` (Default): Only the bucket owner has access
+- `public-read`: Everyone can read objects
+- `public-read-write`: Everyone can read and write (⚠️ not recommended)
+- `authenticated-read`: Only authenticated users can read
 
-**Empfehlung**: Verwende `public-read` für öffentliche Websites oder lass ACL weg und konfiguriere die Bucket-Einstellungen über die Hetzner Console.
+**Recommendation**: Use `public-read` for public websites or omit ACL and configure bucket settings via Hetzner Console.
 
-### Bucket-Organisation mit Präfixen
+### Bucket Organization with Prefixes
 
-Verwende Präfixe, um deine Dateien zu organisieren:
+Use prefixes to organize your files:
 
 ```javascript
-prefix: "production/uploads"  // Alle Dateien unter production/uploads/
-prefix: "strapi/media"         // Alle Dateien unter strapi/media/
+prefix: "production/uploads"  // All files under production/uploads/
+prefix: "strapi/media"         // All files under strapi/media/
 ```
 
-### CORS-Konfiguration
+### CORS Configuration
 
-Falls dein Frontend direkt auf die Dateien zugreift, konfiguriere CORS in der Hetzner Console:
+If your frontend directly accesses the files, configure CORS in the Hetzner Console:
 
 ```json
 {
   "CORSRules": [
     {
-      "AllowedOrigins": ["https://deine-website.de"],
+      "AllowedOrigins": ["https://your-website.com"],
       "AllowedMethods": ["GET", "HEAD"],
       "AllowedHeaders": ["*"],
       "MaxAgeSeconds": 3000
@@ -225,61 +225,61 @@ Falls dein Frontend direkt auf die Dateien zugreift, konfiguriere CORS in der He
 
 ## 🚨 Troubleshooting
 
-### Fehler: "Access Denied"
+### Error: "Access Denied"
 
-**Lösung**: 
-- Überprüfe deine Access Key und Secret Key
-- Stelle sicher, dass der Key die richtigen Berechtigungen hat
-- Wenn du ACL verwendest, stelle sicher, dass der Key `s3:PutObjectACL` Berechtigung hat
+**Solution**: 
+- Check your Access Key and Secret Key
+- Ensure the key has the correct permissions
+- If using ACL, ensure the key has `s3:PutObjectACL` permission
 
-### Fehler: "Bucket not found"
+### Error: "Bucket not found"
 
-**Lösung**:
-- Überprüfe den Bucket-Namen (Case-sensitive!)
-- Stelle sicher, dass der Bucket in der richtigen Region existiert
-- Überprüfe die Region-Konfiguration (fsn1, nbg1, oder hel1)
+**Solution**:
+- Check the bucket name (case-sensitive!)
+- Ensure the bucket exists in the correct region
+- Verify the region configuration (fsn1, nbg1, or hel1)
 
-### Bilder werden nicht angezeigt
+### Images not displaying
 
-**Lösung**:
-- Überprüfe die Content Security Policy in `middlewares.js`
-- Stelle sicher, dass der Bucket öffentlich lesbar ist oder ACL richtig gesetzt ist
-- Prüfe die Browser-Konsole auf CORS-Fehler
+**Solution**:
+- Check the Content Security Policy in `middlewares.js`
+- Ensure the bucket is publicly readable or ACL is set correctly
+- Check browser console for CORS errors
 
-### Uploads schlagen fehl
+### Uploads failing
 
-**Lösung**:
-- Überprüfe die Bucket-Größe und Limits
-- Stelle sicher, dass der Upload nicht zu groß ist
-- Prüfe die Netzwerkverbindung
-- Aktiviere Debug-Logging in Strapi
+**Solution**:
+- Check bucket size and limits
+- Ensure the upload isn't too large
+- Check network connection
+- Enable debug logging in Strapi
 
 ## 🧪 Testing
 
 ```bash
-# Tests ausführen
+# Run tests
 npm test
 
-# Tests mit Coverage
+# Tests with coverage
 npm test -- --coverage
 
 # Build
 npm run build
 ```
 
-## 📊 Vergleich zu anderen Providern
+## 📊 Comparison to Other Providers
 
 | Feature | Hetzner S3 | AWS S3 | DigitalOcean Spaces |
 |---------|-----------|--------|---------------------|
-| Preis (Storage) | ~€0.005/GB | ~€0.023/GB | ~€0.020/GB |
-| Preis (Transfer) | Kostenlos | ~€0.09/GB | ~€0.01/GB |
-| Regionen in EU | ✅ 3 | ✅ 8+ | ❌ |
-| S3-Kompatibel | ✅ | ✅ | ✅ |
-| DSGVO-Konform | ✅ | ⚠️ | ⚠️ |
+| Price (Storage) | ~€0.005/GB | ~€0.023/GB | ~€0.020/GB |
+| Price (Transfer) | Free | ~€0.09/GB | ~€0.01/GB |
+| EU Regions | ✅ 3 | ✅ 8+ | ❌ |
+| S3-Compatible | ✅ | ✅ | ✅ |
+| GDPR-Compliant | ✅ | ⚠️ | ⚠️ |
 
 ## 🤝 Contributing
 
-Contributions sind willkommen! Bitte erstelle einen Pull Request oder öffne ein Issue.
+Contributions are welcome! Please create a pull request or open an issue.
 
 ### Development Setup
 
@@ -299,13 +299,13 @@ npm run build
 
 ## 📝 License
 
-MIT License - siehe [LICENSE](LICENSE) Datei
+MIT License - see [LICENSE](LICENSE) file
 
 ## 🔗 Links
 
-- [Hetzner Object Storage Dokumentation](https://docs.hetzner.com/storage/object-storage/)
+- [Hetzner Object Storage Documentation](https://docs.hetzner.com/storage/object-storage/)
 - [Strapi Upload Providers](https://docs.strapi.io/dev-docs/providers)
-- [AWS SDK für JavaScript v3](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/)
+- [AWS SDK for JavaScript v3](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/)
 
 ## 💬 Support
 
@@ -317,10 +317,10 @@ If you have any questions or issues:
 
 ### v1.0.0
 - Initial Release
-- Support for 3 Regions
+- Support for all three Hetzner regions
 - TypeScript Support
-- Full Test-Coverage
-- Prefix und Base URL Support
+- Full test coverage
+- Prefix and Base URL Support
 
 ---
 
