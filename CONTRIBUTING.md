@@ -197,7 +197,7 @@ Releases are performed by maintainers:
 
 If you have questions:
 - Open an issue
-- Contact the maintainers
-- Send an email to: your.email@example.com
+- Contact the Hermann del Campo
+- Send an email to: github@raiva.io
 
 Thank you for your contribution! 🙏
